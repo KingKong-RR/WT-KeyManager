@@ -1,0 +1,228 @@
+﻿<Window x:Class="KeyManager.Views.EditGroupDialogView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converter="clr-namespace:KeyManager.Converter"
+        xmlns:dependencyProperties="clr-namespace:KeyManager.DependencyProperties"
+        mc:Ignorable="d"
+        Title="{Binding Dialogtitle}"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        WindowStyle="ToolWindow"
+        MinWidth="500"
+        MinHeight="550"
+        Height="550"
+        Width="500"
+        Icon="..\Resources\favicon.ico"
+        dependencyProperties:DialogCloser.DialogResult="{Binding DialogResult, Mode=TwoWay}">
+
+    <Window.Resources>
+        <converter:DateTimeConverter x:Key="DateTimeConverter"/>
+        <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </Window.Resources>
+
+    <Grid>
+
+        <Label Content="ID"
+               HorizontalAlignment="Left"
+               Margin="50,35,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="225,35,0,0"
+                 VerticalAlignment="Top"
+                 Width="120"
+                 MaxLines="1"
+                 TextWrapping="NoWrap"
+                 Text="{Binding UpdateGroup.ActiveGroup.GroupId, Mode=TwoWay}"
+                 IsReadOnly="True"
+                 IsEnabled="False"/>
+
+        <Label Content="Name*"
+               HorizontalAlignment="Left"
+               Margin="50,70,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="225,70,0,0"
+                 VerticalAlignment="Top"
+                 Width="240"
+                 MaxLines="1"
+                 TextWrapping="NoWrap"
+                 Text="{Binding UpdateGroup.ActiveGroup.GroupName, Mode=TwoWay}"
+                 IsEnabled="{Binding UpdateGroup.ActiveGroup.GroupIsDeleted, Mode=TwoWay, Converter={StaticResource InverseBooleanConverter}}"/>
+
+        <Label Content="P-Nummer*"
+               HorizontalAlignment="Left"
+               Margin="50,105,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="225,105,0,0"
+                 VerticalAlignment="Top"
+                 Width="120"
+                 MaxLines="1"
+                 TextWrapping="NoWrap"
+                 Text="{Binding UpdateGroup.ActiveGroup.PNumber, Mode=TwoWay}"
+                 IsEnabled="{Binding UpdateGroup.ActiveGroup.GroupIsDeleted, Mode=TwoWay, Converter={StaticResource InverseBooleanConverter}}"/>
+
+        <Label Content="Betreiber-Name*"
+               HorizontalAlignment="Left"
+               Margin="50,140,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="225,140,0,0"
+                 VerticalAlignment="Top"
+                 Width="120"
+                 MaxLines="1"
+                 TextWrapping="NoWrap"
+                 Text="{Binding UpdateGroup.ActiveGroup.GroupCustomerName, Mode=TwoWay}"
+                 IsReadOnly="True"
+                 IsEnabled="False"/>
+
+        <Label Content="E-Code"
+               HorizontalAlignment="Left"
+               Margin="50,175,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="225,175,0,0"
+                 VerticalAlignment="Top"
+                 Width="120"
+                 MaxLines="1"
+                 TextWrapping="NoWrap"
+                 Text="{Binding UpdateGroup.ActiveGroup.GroupECode, Mode=TwoWay}"
+                 IsReadOnly="True"
+                 IsEnabled="False"/>
+        <CheckBox HorizontalAlignment="Left"
+                Margin="368,180,-43,0"
+                VerticalAlignment="Top"
+                ToolTip="Ein neuer U-Code wird Generiert wenn die Checkbox aktiviert ist, der alte wird deaktiviet"
+                IsChecked="{Binding UpdateGroup.ECodeCheckBoxChecked , Mode=TwoWay}"
+                IsEnabled="{Binding CodeGenerateCheckBoxStateEnabled, Mode=TwoWay, NotifyOnSourceUpdated=True, Converter={StaticResource InverseBooleanConverter}}"/>
+        <Label Content="Neu generiern"
+               HorizontalAlignment="Left"
+               Margin="390,175,0,0"
+               VerticalAlignment="Top"/>
+
+
+        <Label Content="E-Code Servicecard ID"
+               HorizontalAlignment="Left"
+               Margin="50,210,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="225,210,0,0"
+                 VerticalAlignment="Top"
+                 Width="120"
+                 MaxLines="1"
+                 TextWrapping="NoWrap"
+                 Text="{Binding UpdateGroup.ActiveGroup.GroupECodeServiceCardId, Mode=TwoWay}"
+                 IsReadOnly="True"
+                 IsEnabled="False"/>
+
+        <Label Content="U-Code"
+               HorizontalAlignment="Left"
+               Margin="50,245,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="225,245,0,0"
+                 VerticalAlignment="Top"
+                 Width="120"
+                 MaxLines="1"
+                 TextWrapping="NoWrap"
+                 Text="{Binding UpdateGroup.ActiveGroup.GroupUCode, Mode=TwoWay}"
+                 IsReadOnly="True"
+                 IsEnabled="False"/>
+        <CheckBox HorizontalAlignment="Left"
+            Margin="368,250,-43,0"
+            VerticalAlignment="Top"
+            ToolTip="Ein neuer U-Code wird Generiert wenn die Checkbox aktiviert ist, der alte wird deaktiviet"
+            IsChecked="{Binding UpdateGroup.UCodeCheckBoxChecked, Mode=TwoWay}"
+            IsEnabled="{Binding CodeGenerateCheckBoxStateEnabled, Mode=TwoWay, NotifyOnSourceUpdated=True, Converter={StaticResource InverseBooleanConverter}}"/>
+        <Label Content="Neu generiern"
+               HorizontalAlignment="Left"
+               Margin="390,245,0,0"
+               VerticalAlignment="Top"/>
+
+        <Label Content="U-Code Sericecard ID"
+               HorizontalAlignment="Left"
+               Margin="50,280,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="225,280,0,0"
+                 VerticalAlignment="Top"
+                 Width="120"
+                 MaxLines="1"
+                 TextWrapping="NoWrap"
+                 Text="{Binding UpdateGroup.ActiveGroup.GroupUCodeServiceCardId, Mode=TwoWay}"
+                 IsReadOnly="True"
+                 IsEnabled="False"/>
+
+        <Label Content="Gelöscht"
+               HorizontalAlignment="Left"
+               Margin="50,315,0,0"
+               VerticalAlignment="Top"/>
+        <CheckBox HorizontalAlignment="Left"
+                  Margin="225,320,0,0"
+                  VerticalAlignment="Top"
+                  IsChecked="{Binding UpdateGroup.ActiveGroup.GroupIsDeleted, Mode=TwoWay}"
+                  IsEnabled="{Binding DeletedCheckboxStateEnabled, Mode=TwoWay}"/>
+
+        <Label Content="Erstellungsdatum"
+               HorizontalAlignment="Left"
+               Margin="50,350,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left"
+                 Height="23" Margin="225,350,0,0"
+                 VerticalAlignment="Top"
+                 Width="120"
+                 MaxLines="1"
+                 TextWrapping="NoWrap"
+                 Text="{Binding UpdateGroup.ActiveGroup.GroupCreationDate, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"
+                 IsReadOnly="True"
+                 IsEnabled="False"/>
+
+        <Label Content="Deaktivierungsdatum"
+               HorizontalAlignment="Left"
+               Margin="50,385,0,0"
+               VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="225,385,0,0"
+                 VerticalAlignment="Top"
+                 Width="120"
+                 MaxLines="1"
+                 TextWrapping="NoWrap"
+                 Text="{Binding UpdateGroup.ActiveGroup.GroupDeletedDate, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}"
+                 IsReadOnly="True"
+                 IsEnabled="False"/>
+
+        <Button Content="Speichern"
+                HorizontalAlignment="Left"
+                Margin="50,420,0,0"
+                VerticalAlignment="Top"
+                Width="120"
+                Command="{Binding SaveAsync}"
+                IsEnabled="{Binding ButtonIsDisabled, Mode=TwoWay, Converter={StaticResource InverseBooleanConverter}}"/>
+
+        <Button Content="Abbrechen"
+                HorizontalAlignment="Left"
+                Margin="225,420,0,0"
+                VerticalAlignment="Top"
+                Width="120"
+                Command="{Binding Cancel}"
+                IsCancel="True"/>
+
+        <Button Content="Aktualisieren"
+                HorizontalAlignment="Left"
+                Margin="383,420,0,0"
+                VerticalAlignment="Top"
+                Width="75"
+                Command="{Binding Refresh}"/>
+    </Grid>
+</Window>

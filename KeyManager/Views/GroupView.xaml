@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="KeyManager.Views.GroupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converter="clr-namespace:KeyManager.Converter"
+             mc:Ignorable="d" 
+             d:DesignHeight="600"
+             d:DesignWidth="1200"
+             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=GroupViewModel}">
+
+    <UserControl.Resources>
+        <converter:DateTimeConverter x:Key="DateTimeConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Grid.Column="0">
+            <Label Content="Suche in Gruppen"
+                   FontSize="15"
+                   FontWeight="Bold"/>
+
+            <Label Margin="5,0,0,0"
+                   Content="Name"
+                   FontSize="12"/>
+            <TextBox Margin="5,0,10,0"
+                     FontSize="12"
+                     x:Name="GroupName"
+                     Text="{Binding GroupName}"/>
+
+            <Label Margin="5,0,0,0"
+                   Content="Betreiber-Name"
+                   FontSize="12"/>
+            <TextBox Margin="5,0,10,0"
+                     FontSize="12"
+                     x:Name="GroupCustomerName"
+                     Text="{Binding GroupCustomerName}"/>
+
+            <Label Margin="5,0,0,0"
+                   Content="P-Nummer"
+                   FontSize="12"/>
+            <TextBox Margin="5,0,10,0"
+                     FontSize="12"
+                     x:Name="PNumber"
+                     Text="{Binding PNumber}"/>
+
+            <Label Margin="5,0,0,0"
+                   Content="Von"
+                   FontSize="12"/>
+            <DatePicker Margin="5,0,10,0"
+                        SelectedDate="{Binding SearchGroupStartDate}"/>
+
+            <Label Margin="5,0,0,0"
+                   Content="Bis"
+                   FontSize="12"/>
+            <DatePicker Margin="5,0,10,0"
+                        SelectedDate="{Binding SearchGroupEndDate}"/>
+
+            <ComboBox Margin="5,10,10,0"
+                      SelectedIndex="{Binding SearchGroupIsDeleted}">
+                <ComboBoxItem IsSelected="True">Inaktiv und Aktiv</ComboBoxItem>
+                <ComboBoxItem>Inaktiv</ComboBoxItem>
+                <ComboBoxItem>Aktiv</ComboBoxItem>
+            </ComboBox>
+
+            <Button
+                Command="{Binding DoGetGroupsBySearchParameterAsync}"
+                Margin="5,60,10,0"
+                Content="Suchen"
+                FontSize="15"
+                IsDefault="True"/>
+        </StackPanel>
+
+        <DataGrid Name="GroupsGrid" 
+                  Grid.Column="1"
+                  ItemsSource="{Binding Groups}" 
+                  CanUserResizeColumns="True" 
+                  CanUserAddRows="False" 
+                  CanUserSortColumns="True" 
+                  AutoGenerateColumns="False"
+                  IsSynchronizedWithCurrentItem="True"
+                  EnableRowVirtualization="True"
+        >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"
+                                    Binding="{Binding GroupName}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="P-Nummer"
+                                    Binding="{Binding PNumber}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Betreiber-Name"
+                                    Binding="{Binding GroupCustomerName}"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Header="U-Code"
+                                    Binding="{Binding GroupUCode}"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Header="U-SCard-ID"
+                                    Binding="{Binding GroupUCodeServiceCardId}"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Header="E-Code"
+                                    Binding="{Binding GroupECode}"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Header="E-SCard-ID"
+                                    Binding="{Binding GroupECodeServiceCardId}"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Header="Erstellungsdatum"
+                                    Binding="{Binding GroupCreationDate, Converter={StaticResource DateTimeConverter}}"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Header="Deaktivierungdatum"
+                                    Binding="{Binding GroupDeletedDate, Converter={StaticResource DateTimeConverter}}"
+                                    IsReadOnly="True"/>
+                <DataGridCheckBoxColumn
+                                    Header="Gelöscht"
+                                    Binding="{Binding GroupIsDeleted}"
+                                    IsReadOnly="True"/>
+            </DataGrid.Columns>
+
+            <DataGrid.InputBindings>
+                <MouseBinding
+                    MouseAction="LeftDoubleClick"
+                    Command="{Binding EditGroup}"
+                    CommandParameter="{Binding Groups/}"/>
+                <!--Frontslash muss rein, weil er sonst ein komplettes Array liefert, mit dem Slash liefert er nur das Item welces Angeklickt wurde-->
+            </DataGrid.InputBindings>
+        </DataGrid>
+    </Grid>
+</UserControl>
+

@@ -1,0 +1,20 @@
+SQl Server
+****************
+KINGKONG_RR\KKRR_SQL
+KeyManager
+sa
+BMW1.9iZ3
+
+
+
+
+Driver
+****************
+11000
+
+
+
+
+Reports
+****************
+C:\Git\KeyManager\Reports
